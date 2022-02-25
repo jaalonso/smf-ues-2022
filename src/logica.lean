@@ -1,5 +1,4 @@
-/-
-Este documento ha sido escrito completamente como un archivo de Lean.
+/- Este documento ha sido escrito completamente como un archivo de Lean.
 Para seguir los ejercicios, debe abrir este archivo en su editor, por
 ejemplo VS Code. Se le deberían haber entregado instrucciones de cómo
 instalar Lean en su computadora. En esta página puede encontrar
@@ -35,25 +34,21 @@ https://github.com/ImperialCollegeLondon/formalising-mathematics
 
 Antes de empezar con definiciones, creamos un espacio de nombres
 para este curso, smf22. Este espacio lo usamos sólo para no tener
-problemas si usamos el mismo nombre que algo que ya exista.
--/
+problemas si usamos el mismo nombre que algo que ya exista. -/
 
 namespace smf22
 
-/-
-En la lógica los objetos principales de interés son "proposiciones". Una
+/- En la lógica los objetos principales de interés son "proposiciones". Una
 proposición es un enunciado o una aseveración, generalmente de una
 verdad demostrada o asumida, pero también de una falsedad. A Lean le
 decimos que `P` es una proposición con la notación usando dos puntos:
 `P : Prop`.
 
-Por ejemplo,
--/
+Por ejemplo, -/
 
 variables  (P Q R : Prop).
 
-/-
-Esta declaración está diciéndole a Lean que tenemos tres variables, `P`,
+/- Esta declaración está diciéndole a Lean que tenemos tres variables, `P`,
 `Q` y `R`. Estas tres variables representan proposiciones. Podrían ser
 proposiciones como "todos los hombres son mortales" o "Sócrates es un
 hombre", ejemplos clásicos de la lógica, pero también proposiciones
@@ -69,8 +64,7 @@ Curry-Howard, pero no profundizaremos en esto).
 
 Empezamos demostrando un teorema bien sencillo, para entender cómo
 funciona Lean y cómo nos ayuda a demostrar. Toda proposición `P` se
-implica a sí misma. En Lean lo decimos de la siguiente manera:
--/
+implica a sí misma. En Lean lo decimos de la siguiente manera: -/
 
 theorem id : P → P :=
 begin
@@ -78,14 +72,12 @@ begin
   exact hP,
 end
 
-/-
-Para demostrar esto usamos dos "tácticas", `intro` que introduce
+/- Para demostrar esto usamos dos "tácticas", `intro` que introduce
 hipótesis, y `exact` que le dice a Lean que nuestra solución es
 exactamente la hipótesis nombrada.
 
 Un ejemplo un poco menos trivial, conocido como "modus ponens" en
-lógica, que viene del latín: "el modo que, al afirmar, afirma"
--/
+lógica, que viene del latín: "el modo que, al afirmar, afirma" -/
 
 lemma modus_ponens : P → (P → Q) → Q :=
 begin
@@ -95,17 +87,15 @@ begin
   exact hP,
 end
 
-/-
-La táctica `intro` se puede usar para introducir varias hipótesis a la
-vez, diciendo en vez `intros`.
+/- La táctica `intro` se puede usar para introducir varias hipótesis a
+la vez, diciendo en vez `intros`.
 
 Aquí también hemos usado una nueva táctica, `apply`. Esta reduce
 nuestro *objetivo* usando una suposición. Note cómo esto nos sirve para
 razonar "para atrás":
 
 Para demostrar `Q`, sabiendo que `P → Q`, basta demostrar `P`. En las
-matemáticas es más común razonar "para adelante":
--/
+matemáticas es más común razonar "para adelante": -/
 
 lemma modus_ponens_adelante : P → (P → Q) → Q :=
 begin
@@ -114,14 +104,12 @@ begin
   exact hQ,
 end
 
-/-
-Al usar `have` le podemos dar nombre a una conclusión que tenemos, en el
-estilo de razonamiento "hacia adelante". Sin embargo, trabajando en Lean
-preferimos la otra variante, reduciendo el objetivo.
+/- Al usar `have` le podemos dar nombre a una conclusión que tenemos, en
+el estilo de razonamiento "hacia adelante". Sin embargo, trabajando en
+Lean preferimos la otra variante, reduciendo el objetivo.
 
 Empezamos con el primer ejercicio para resolver, demostremos que la
-implicación lógica es transitiva
--/
+implicación lógica es transitiva. -/
 
 lemma imp_trans : (P → Q) → (Q → R) → (P → R) :=
 begin
@@ -131,14 +119,12 @@ begin
   exact hP,
 end
 
-/-
-Le decimos a Lean que no tenemos una demostración usando `sorry`, como
-disculpa, para que acepte el teorema sin demostación. No se preocupe,
-sin embargo, Lean advierte cuando un teorema ha sido aceptado sin
-demostración, también cuando hemos usado un teorema que ya teníamos.
+/- Le decimos a Lean que no tenemos una demostración usando `sorry`,
+como disculpa, para que acepte el teorema sin demostación. No se
+preocupe, sin embargo, Lean advierte cuando un teorema ha sido aceptado
+sin demostración, también cuando hemos usado un teorema que ya teníamos.
 
-El siguiente us una variante "relativa" del "modus ponens".
--/
+El siguiente us una variante "relativa" del "modus ponens". -/
 
 lemma forall_imp : (P → Q → R) → (P → Q) → (P → R) :=
 begin
@@ -147,8 +133,7 @@ begin
   sorry
 end
 
-/-
-Hemos visto la implicación lógica. El siguiente concepto central que
+/- Hemos visto la implicación lógica. El siguiente concepto central que
 veremos es la negación.
 
 La negación de `P` se escribe `¬ P`. En Lean, esto es *por definición*
@@ -158,8 +143,7 @@ cualquier cosa. Entonces una proposicicón `P` es falsa si (y sólo si)
 podemos deducir falso de ella. Esto nunca pasa con una proposición
 verdadera, o si no nuestros axiomas serían inconsistentes.
 
-En Lean podemos escribir esta caracterización de la siguiente manera:
--/
+En Lean podemos escribir esta caracterización de la siguiente manera: -/
 
 theorem not_iff_imp_false : ¬ P ↔ (P → false) :=
 begin
@@ -167,16 +151,14 @@ begin
   refl
 end
 
-/-
-Hemos escrito `↔` en vez de `→`, para decir "si y sólo si". `P ↔ Q` no
-quiere decir más que `P → Q` y `Q → P`.
+/- Hemos escrito `↔` en vez de `→`, para decir "si y sólo si". `P ↔ Q`
+no quiere decir más que `P → Q` y `Q → P`.
 
 Para demostrarlo usamos una nueva táctia, `refl`, que quiere decir que
 por "reflexividad" (de la equivalencia). Básicamente le estamos diciendo
 esto es verdad porque ambos lados dicen lo mismo.
 
-Vamos a demostrar la doble negación, de la siguiente manera:
--/
+Vamos a demostrar la doble negación, de la siguiente manera: -/
 
 theorem not_not_intro : P → ¬ (¬ P) :=
 begin
@@ -190,35 +172,30 @@ begin
   -- Pero no tenemos que hacerlo porque son lo mismo *por definición*
 end
 
-/-
-La táctica `rw` viene de "rewrite" (reescribir, en inglés).  La usamos
-para cambiar dos proposiciónes que son equivalentes, o dos valores que
-son iguales, en alguna hipótesis u objetivo.
+/- La táctica `rw` viene de "rewrite" (reescribir, en inglés).  La
+usamos para cambiar dos proposiciónes que son equivalentes, o dos
+valores que son iguales, en alguna hipótesis u objetivo.
 
 La otra implicación, `¬ (¬ P) → P` no la podemos demostrar aquí. De
 hecho, esto es equivalente a un axioma que se llama el "principio del
-tercero excluido":
--/
+tercero excluido": -/
 
 axiom te (A : Prop) : A ∨ ¬ A
 
-/-
-Discutiremos esto más tarde, después de hablar de disyunciones.
+/- Discutiremos esto más tarde, después de hablar de disyunciones.
 
 Relacionado con el anterior, vamos a demostrar otro principio de
 razonamiento lógico que normalmente se le conoce como "modus
 tollens". A veces se le considera una forma de "demostración por
-contradicción":
--/
+contradicción": -/
 
 theorem modus_tollens : (P → Q) → (¬ Q → ¬ P) :=
 begin
   sorry,
 end
 
-/-
-Para demostrar la proposición de "ex falso quod libet" mencionada arriba
--/
+/- Para demostrar la proposición de "ex falso quod libet" mencionada
+arriba. -/
 
 theorem ex_falso_quod_libet : false → Q :=
 begin
@@ -227,10 +204,9 @@ begin
   exact hFalso,
 end
 
-/-
-Esta demostración ocupa una tactica 'exfalso' para cambiar el objetivo
-a "false" (falso). Podemos hacer esto porque (asumimos que) a partir de
-nuestros axiomas no se puede demostrar falso.
+/- Esta demostración ocupa una tactica 'exfalso' para cambiar el
+objetivo a "false" (falso). Podemos hacer esto porque (asumimos que) a
+partir de nuestros axiomas no se puede demostrar falso.
 
 Entonces en este caso podemos deducir cualquier cosa, pero obviamente la
 premisa (falso) nunca se cumplirá. Recuerde que aquí estamos
@@ -240,8 +216,7 @@ A continuación vamos a cubrir conjunciones (el "y" lógico). En Lean,
 igual que en lógica, escribimos una conjunción con el símbolo `∧`.
 
 En Lean, la hipótesis `P ∧ Q` es equivalente a tener dos hipótesis, `P`
-y `Q`. Podemos separarlas usando la táctica `cases`:
--/
+y `Q`. Podemos separarlas usando la táctica `cases`: -/
 
 theorem and.elim_left : P ∧ Q → P :=
 begin
@@ -250,9 +225,7 @@ begin
   exact hP,
 end
 
-/-
-Ahora un ejercicio muy sencillo.
--/
+/- Ahora un ejercicio muy sencillo. -/
 
 theorem and.elim_right : P ∧ Q → Q :=
 begin
@@ -261,12 +234,10 @@ begin
   exact hQ,
 end
 
-/-
-Hemos visto cómo usar una hipótesis con una conjunción. Ahora, para
-*demostrar* una proposición con una conjunción, tenemos que demostrar que
-ambas proposiciones son verdaderas. Esto lo hacemos con la táctica
-`split`:
--/
+/- Hemos visto cómo usar una hipótesis con una conjunción. Ahora, para
+*demostrar* una proposición con una conjunción, tenemos que demostrar
+que ambas proposiciones son verdaderas. Esto lo hacemos con la táctica
+`split`: -/
 
 theorem and.intro : P → Q → P ∧ Q :=
 begin
@@ -342,9 +313,10 @@ begin
 end
 
 /- ¿Cuál es la diferencia entre el uso de `cases` aquí en
-disyunción y anteriormente en una conjunción? -/
+disyunción y anteriormente en una conjunción?
 
-/- Un par de ejercicios de propiedades de la disyunción: -/
+Un par de ejercicios de propiedades de la disyunción: -/
+
 /- `∨` es simétrico -/
 theorem or.symm : P ∨ Q → Q ∨ P :=
 begin
@@ -369,8 +341,7 @@ anteriormente?
 
 Recuerde que *necesita* usar el axioma `te` que definimos arriba.
 
-Podemos pedirle a Lean que nos lo recuerde usando `#check`:
--/
+Podemos pedirle a Lean que nos lo recuerde usando `#check`: -/
 
 #check te
 
