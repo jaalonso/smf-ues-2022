@@ -31,7 +31,7 @@ servirán para instalar Lean en su computadora antes del curso. Estas
 instrucciones (en inglés) y más detalles los puede encontrar también en
 línea: <https://leanprover-community.github.io/>
 
-## GNU/Linux:
+## GNU/Linux
 
 Si dispone de una distribución de GNU/Linux basada en Debian
 (p.e. Ubuntu), la forma más fácil de instalar es abriendo una terminal y
@@ -68,7 +68,6 @@ manejar proyectos. La instalamos corriendo los sugientes comandos.
     source ~/.profile
     pipx install mathlibtools
 
-
 ## Microsoft Windows
 
 El siguiente video (en inglés) muestra el proceso de instalación
@@ -97,30 +96,45 @@ Python, si no lo tiene todavía: <https://www.python.org/downloads/>
 Descargue la versión más nueva.
 
 Durante la instalación de Python, eliga la opción de agregar python al
-entorno PATH cuando el instalador le de la opción.
-
-Eliga la instalación estándar.
+entorno PATH cuando el instalador le de la opción. Eliga la instalación
+estándar.
 
 Para comprobar su instalación de Python, abra nuevamente la terminal
 (buscando "git bash" en el menú de inicio) y escriba lo siguiente:
 
     which python
 
-Debería ver algo como lo siguiente: /c/Users/<user>/AppData/Local/Programs/Python/Pythonxx-xx/python
-Si, en vez, ve algo como:  /c/Users/<user>/AppData/Local/Microsoft/WindowsApps/python entonces ha sucedido algo mal. Tal vez olvido agregar python al entorno PATH durante la instalación? En ese caso reinstale, seleccionando esta opción.
-Si no olvidó seleccionar esta opción, entonces ha ocurrido otro problema. Para solucionarlo, en el menú de inicio escriba: "manage app execution aliases" y abra la sección correspondiente en la configuración del sistema.
-Debería haber dos entradas de Python: "App Installer python.exe" y "App Installer python3.exe", asegúrese que ambas esten apagadas. Cierre y vuelva a abrir la terminal (git bash) y repita este paso de comprobación.
+Debería ver algo como lo siguiente:
 
-En la terminal, ejecute el siguiente comando para asegurarse que pueda llamar al programa python usando también el nombre "python3":
+    /c/Users/<user>/AppData/Local/Programs/Python/Pythonxx-xx/python
+
+Si, en vez, ve algo como:
+
+    /c/Users/<user>/AppData/Local/Microsoft/WindowsApps/python
+
+entonces ha sucedido algo mal. ¿Tal vez olvidó agregar python al entorno
+PATH durante la instalación? En ese caso reinstale, seleccionando esta
+opción.  Si no olvidó seleccionar esta opción, entonces ha ocurrido otro
+problema. Para solucionarlo, en el menú de inicio escriba: "manage app
+execution aliases" y abra la sección correspondiente en la configuración
+del sistema. Debería haber dos entradas de Python: "App Installer
+python.exe" y "App Installer python3.exe", asegúrese que ambas estén
+apagadas. Cierre y vuelva a abrir la terminal (git bash) y repita este
+paso de comprobación.
+
+En la terminal, ejecute el siguiente comando para asegurarse que pueda
+llamar al programa Python usando también el nombre "python3":
 
     cp "$(which python)" "$(which python)"3
 
-Luego de hacer esto, compruebe que haya funcionado corriendo lo siguiente:
+Luego de hacer esto, compruebe que haya funcionado ejecutando lo siguiente:
 
     python3 --version
     pip3 --version
 
-Ambos comandos deberían reportarle un número de la versión que tiene instalada. Si el segundo, pip3, no funciona, entonces puede instalarlo ejecutando:
+Ambos comandos deberían reportarle un número de la versión que tiene
+instalada. Si el segundo, pip3, no funciona, entonces puede instalarlo
+ejecutando:
 
     python3 -m pip install --upgrade pip
 
@@ -128,30 +142,43 @@ Finalmente, instale las herramientas de mathlib ejecutando lo siguiente:
 
     pip3 install mathlibtools
 
-Ya con todo esto instalado, sólo necesitamos un editor. En esta guía usaremos visual studio code. Descarguélo e instálelo de la sigiente página: <https://code.visualstudio.com/>
+Ya con todo esto instalado, sólo necesitamos un editor. En esta guía
+usaremos Visual Studio Code. Descarguélo e instálelo de la siguiente
+página: <https://code.visualstudio.com/>
 
-Acceda por el menú a la seleción de extensiones (también puede hacerlo aprentando Shift + Control + X).
-Instale la extensión "Lean", la cual puede encontrar buscando "leanprover". Nota: **No** descargue la extensión "Lean4", esta no es compatible con Mathlib y no la usaremos en este minicurso.
-
-
+Acceda por el menú a la seleción de extensiones (también puede hacerlo
+pulsando Shift + Control + X). Instale la extensión "Lean", la cual
+puede encontrar buscando "leanprover". Nota: **No** descargue la
+extensión "Lean4", esta no es compatible con Mathlib y no la usaremos en
+este minicurso.
 
 ## Mac
 
-Si ud tiene una Mac con chip de intel (la mayoría, excepto ciertos modelos 2020-2021), entonces la forma más fácil es abrir una terminal (presione Command + Espacio, escriba "terminal" y presione enter). En la terminal copie y pegue lo siguiente:
+Si ud tiene una Mac con chip de Intel (la mayoría, excepto ciertos
+modelos 2020-2021), entonces la forma más fácil es abrir una terminal
+(presione Command + Espacio, escriba "terminal" y presione enter). En la
+terminal copie y pegue lo siguiente:
 
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/leanprover-community/mathlib-tools/master/scripts/install_macos.sh)" && source ~/.profile
 
-Esto instalará todo en su computadora, sin pedirle permisos de administrador. Si ud. prefiere más control sobre la instalación, la siguiente página (en inglés) muestra más detalles:
+Esto instalará todo en su computadora, sin pedirle permisos de
+administrador. Si ud. prefiere más control sobre la instalación, la
+siguiente página (en inglés) muestra más detalles:
 
 <https://leanprover-community.github.io/install/macos_details.html>
 
-Si ud. tiene una nueva Macbook con un chip M1 (de Apple), le sugerimos seguir las instrucciones siguientes (en inglés):  <https://leanprover-community.github.io/install/macos.html>
+Si ud. tiene una nueva Macbook con un chip M1 (de Apple), le sugerimos
+seguir las instrucciones siguientes (en inglés):
+<https://leanprover-community.github.io/install/macos.html>
 
 # No pude/no quise instalar Lean
 
-Si intentó instalar Lean y de verdad no pudo, puede usar Lean en el navegador. Sin embargo, *no* se recomienda esta alternativa, porque no podrá usar toda la funcionalidad ni guardar su progreso, etc.
+Si intentó instalar Lean y de verdad no pudo, puede usar Lean en el
+navegador. Sin embargo, *no* se recomienda esta alternativa, porque no
+podrá usar toda la funcionalidad ni guardar su progreso, etc.
 
-A continuación, enlaces para abrir Lean en la red con los distintos módulos:
+A continuación, se muestran los enlaces para abrir Lean en la Red con
+los distintos módulos:
  - [Lógica](https://leanprover-community.github.io/lean-web-editor/#url=https%3A%2F%2Fraw.githubusercontent.com%2Fgoens%2Fsmf-ues-2022%2Fmaster%2Fsrc%2Flogica.lean)
  - [Numeros naturales](https://leanprover-community.github.io/lean-web-editor/#url=https%3A%2F%2Fraw.githubusercontent.com%2Fgoens%2Fsmf-ues-2022%2Fmaster%2Fsrc%2Fnumeros_naturales.lean)
  - [Grupos](https://leanprover-community.github.io/lean-web-editor/#url=https%3A%2F%2Fraw.githubusercontent.com%2Fgoens%2Fsmf-ues-2022%2Fmaster%2Fsrc%2Fgrupos.lean)
